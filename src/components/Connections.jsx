@@ -1,20 +1,22 @@
 import axios from "axios";
+import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
-  const connections = useSelector((store) => store.connections);
+  const connections = useSelector((state) => state.connections);
   const dispatch = useDispatch();
   const fetchConnections = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
       });
-      dispatch(addConnections(res.data.data));
-    } catch (err) {
-      // Handle Error Case
+      // console.log(res.data.data);
+      dispatch(addConnections(res?.data?.data));
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -22,12 +24,12 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  if (!connections) return;
-
-  if (connections.length === 0) return <h1> No Connections Found</h1>;
+  // console.log(connections);
+  if (!connections) return <div>No connections fetch</div>;
+  if (connections.length === 0) return <h1>No connections Found</h1>;
 
   return (
-    <div className="text-center my-10">
+    <div className="mx-auto text-center my-10 ">
       <h1 className="text-bold text-white text-3xl">Connections</h1>
 
       {connections.map((connection) => {
@@ -37,26 +39,32 @@ const Connections = () => {
         return (
           <div
             key={_id}
-            className=" flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
+            className=" flex justify-between items-center m-4 p-4 rounded-lg bg-base-300 md:w-1/2 w-[75vw] mx-auto"
           >
-            <div>
-              <img
-                alt="photo"
-                className="w-20 h-20 rounded-full object-cover"
-                src={photoUrl}
-              />
+            <div className="flex">
+              <div>
+                <img
+                  alt="photo"
+                  className="w-20 h-20 rounded-full object-cover"
+                  src={photoUrl}
+                />
+              </div>
+              <div className="text-left mx-4 ">
+                <h2 className="font-bold text-xl">
+                  {firstName + " " + lastName}
+                </h2>
+                {age && gender && <p>{age + ", " + gender}</p>}
+                <p>{about}</p>
+              </div>
             </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
-            </div>
+            <Link to={"/chat/" + _id}>
+              <button className="btn btn-primary">Chat</button>
+            </Link>
           </div>
         );
       })}
     </div>
   );
 };
+
 export default Connections;
