@@ -167,7 +167,7 @@ const Home = () => {
               <p class="mt-5 text-zinc-200">
                 Already joined us?{" "}
                 <Link
-                  to="/signup"
+                  to="/login"
                   title=""
                   class="text-blue-700 transition-all duration-200 hover:underline"
                 >

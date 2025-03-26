@@ -27,45 +27,46 @@ const Login = ({ toggleForm }) => {
   };
 
   return (
-    <div className="flex flex-col mx-auto w-96">
-      <h2 className="text-3xl font-bold">Login</h2>
-      <p className="text-gray-500">Welcome back, please enter your details.</p>
+    <div className="flex flex-wrap">
+      <div className="flex w-full flex-col md:w-1/2 bg-base-200">
+        <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-16 mt-6">
+          <p className="text-left text-3xl font-bold">Welcome 🙏, DevTinder</p>
+          <p className="mt-2 text-left text-gray-500">Welcome back, please enter your details.</p>
 
-      <form className="flex flex-col space-y-4" onSubmit={handleLogin}>
-        <label>Email</label>
-        <input
-          type="email"
-          value={emailId}
-          onChange={(e) => setEmailId(e.target.value)}
-          className="input-field"
-          placeholder="Enter your email"
-        />
+          <form className="flex flex-col pt-4 space-y-4" onSubmit={handleLogin}>
+            <label>Email</label>
+            <input
+              type="email"
+              value={emailId}
+              onChange={(e) => setEmailId(e.target.value)}
+              className="input input-bordered w-full max-w-xs"
+              placeholder="Email"
+            />
 
-        <label>Password</label>
-        <div className="relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="input-field"
-            placeholder="Enter your password"
-          />
-          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 text-gray-500">
-            {showPassword ? "Hide" : "Show"}
-          </button>
+            <label>Password</label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input input-bordered w-full max-w-xs"
+                placeholder="Password"
+              />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 text-gray-500">
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
+            <button className="btn btn-primary w-full" type="submit">Login</button>
+          </form>
+
+          <p className="m-auto cursor-pointer py-2 text-gray-500">
+            Don't have an account? <span className="text-blue-500 underline cursor-pointer" onClick={toggleForm}>Sign up for free.</span>
+          </p>
         </div>
-
-        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
-        <button className="btn-primary" type="submit">Login</button>
-      </form>
-
-      <p className="text-center text-gray-500 mt-4">
-        Don't have an account?{" "}
-        <span className="text-blue-600 cursor-pointer" onClick={toggleForm}>
-          Sign up for free.
-        </span>
-      </p>
+      </div>
     </div>
   );
 };
