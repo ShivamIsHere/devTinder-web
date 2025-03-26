@@ -105,7 +105,7 @@ const Login = () => {
                 <label>Email</label>
                 <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
                   <input
-                    type="email"
+                    type="text"
                     value={emailId}
                     onChange={(e) => setEmailId(e.target.value)}
                     id="login-email"
