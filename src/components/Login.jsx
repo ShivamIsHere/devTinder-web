@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import e from "cors";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -30,13 +31,14 @@ const Login = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      return navigate("/");
+      return navigate("/feed");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
   };
 
   const handleSignUp = async () => {
+    e.prevent.default();
     try {
       const res = await axios.post(
         BASE_URL + "/signup",
