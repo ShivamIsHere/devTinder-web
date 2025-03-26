@@ -6,51 +6,50 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
-
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Handle login form submission
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     try {
       const res = await axios.post(
-        `${BASE_URL}/login`, 
-        { emailId, password },
-        { withCredentials: true }
-      );
-      dispatch(addUser(res.data)); 
-      navigate("/feed");
-    } catch (err) {
-      setErrorMessage(err?.response?.data?.message || "Something went wrong!");
-      console.error(err);
-    }
-  };
-
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        `${BASE_URL}/signup`, 
-        { emailId, password, firstName, lastName, age, gender },
+        BASE_URL + "/login",
+        {
+          emailId,
+          password,
+        },
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      navigate("/profile"); 
+      return navigate("/");
     } catch (err) {
-      setErrorMessage(err?.response?.data?.message || "Something went wrong!");
-      console.error(err);
+      setError(err?.response?.data || "Something went wrong");
     }
   };
+
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { emailId, password, firstName, lastName, age, gender },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data.data));
+      return navigate("/profile");
+    } catch (err) {
+      setError(err?.response?.data || "Something went wrong");
+    }
+  };
+
   
 
   return (

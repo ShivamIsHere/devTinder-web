@@ -28,11 +28,8 @@ const Body = () => {
   };
 
   useEffect(() => {
-    if (!userData || !userData.emailId) {
-      fetchUser();
-    }
-  }, [userData, dispatch]);
-
+    fetchUser();
+  }, []);
   return (
     
     <div className="flex flex-col min-h-screen">
