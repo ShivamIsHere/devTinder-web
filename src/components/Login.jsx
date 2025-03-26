@@ -51,6 +51,9 @@ const Login = () => {
       console.error(err);
     }
   };
+  useEffect(() => {
+    handleSignUp();
+    }, []);
 
   return (
     <div className="flex flex-wrap">
