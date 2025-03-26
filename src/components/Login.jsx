@@ -45,7 +45,9 @@ const Login = () => {
         { emailId, password, firstName, lastName, age, gender },
         { withCredentials: true }
       );
+      console.log("object",res.data)
       dispatch(addUser(res.data.data));
+      console.log("object11",res.data.data)
       navigate("/profile");
     } catch (err) {
       setErrorMessage(err?.response?.data?.message || "Something went wrong!");
