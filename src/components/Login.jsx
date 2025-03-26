@@ -59,7 +59,7 @@ const Login = () => {
           <div>
             {isLoginForm ? (
               <p className="text-left text-3xl font-bold">
-                Welcome 🙏, DevTinder
+                Welcome 🙏 DevTinder
               </p>
             ) : (
               <p className="text-left text-3xl font-bold">Register</p>
@@ -83,7 +83,8 @@ const Login = () => {
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                       placeholder="Your Name"
-                      className="mt-2 h-12 w-full rounded-md bg-gray-100 px-3"
+                      className="mt-2 h-12 w-full rounded-md bg-gray-500 px-3 text-white"
+
                     />
                   </div>
                   {/* Last Name */}
@@ -94,7 +95,8 @@ const Login = () => {
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                       placeholder="Last Name"
-                      className="mt-2 h-12 w-full rounded-md bg-gray-100 px-3"
+                      className="mt-2 h-12 w-full rounded-md bg-gray-500 px-3 text-white"
+
                     />
                   </div>
 
@@ -103,7 +105,8 @@ const Login = () => {
                     <select
                       value={gender}
                       onChange={(e) => setGender(e.target.value)}
-                      className="mt-2 h-12 w-full rounded-md bg-gray-100 px-3"
+                      className="mt-2 h-12 w-full rounded-md bg-gray-500 px-3 text-white"
+
                     >
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
@@ -119,7 +122,8 @@ const Login = () => {
                       value={age}
                       onChange={(e) => setAge(e.target.value)}
                       placeholder="Enter your age"
-                      className="mt-2 h-12 w-full rounded-md bg-gray-100 px-3"
+                      className="mt-2 h-12 w-full rounded-md bg-gray-500 px-3 text-white"
+
                     />
                   </div>
                 </div>
