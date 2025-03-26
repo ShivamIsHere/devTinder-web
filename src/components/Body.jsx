@@ -28,8 +28,10 @@ const Body = () => {
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (!userData || !userData.emailId) {
+      fetchUser();
+    }
+  }, [userData, dispatch]);
 
   return (
     
