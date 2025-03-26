@@ -39,9 +39,9 @@ const ProfileCard = ({user}) => {
             
             </table>
 
-            <div className="text-center my-3">
+            {/* <div className="text-center my-3">
                 <a className="text-xs text-indigo-500 italic hover:underline font-medium">View Profile</a>
-            </div>
+            </div> */}
 
         </div>
     </div>

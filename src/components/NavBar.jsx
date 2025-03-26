@@ -14,8 +14,10 @@ const NavBar = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
-      return navigate('/login')
-    } catch (error) {}
+      return navigate("/login");
+    } catch (err) {
+      // Error logic maybe redirect to error page
+    }
   };
 
   return (
@@ -27,15 +29,15 @@ const NavBar = () => {
       </div>
       {user && (
         <div className="flex-none gap-2">
-          <div className="form-control hidden md:block">Welcome, {user.firstName}</div>
-          <div className="dropdown dropdown-end mx-5">
+          <div className="form-control">Welcome, {user.firstName}</div>
+          <div className="dropdown dropdown-end mx-5 flex">
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user.photoUrl} />
+                <img alt="user photo" src={user.photoUrl} />
               </div>
             </div>
             <ul
@@ -51,6 +53,7 @@ const NavBar = () => {
               <li>
                 <Link to="/connections">Connections</Link>
               </li>
+
               <li>
                 <Link to="/requests">Requests</Link>
               </li>
@@ -67,5 +70,4 @@ const NavBar = () => {
     </div>
   );
 };
-
 export default NavBar;

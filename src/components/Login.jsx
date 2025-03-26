@@ -4,15 +4,12 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
-import e from "cors";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -30,32 +27,26 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data.data));
+      dispatch(addUser(res.data));
       return navigate("/feed");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
   };
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
+  const handleSignUp = async () => {
     try {
       const res = await axios.post(
-        `${BASE_URL}/signup`,
-        { emailId, password, firstName, lastName, age, gender },
+        BASE_URL + "/signup",
+        { firstName, lastName, emailId, password },
         { withCredentials: true }
       );
-      console.log("object",res.data)
       dispatch(addUser(res.data.data));
-      console.log("object11",res.data.data)
-      navigate("/profile");
+      return navigate("/profile");
     } catch (err) {
-      setErrorMessage(err?.response?.data?.message || "Something went wrong!");
-      console.error(err);
+      setError(err?.response?.data || "Something went wrong");
     }
   };
-
-  
 
   return (
     <div className="flex flex-wrap">
@@ -76,8 +67,7 @@ const Login = () => {
           </p>
 
           <div className="flex flex-col pt-3 md:pt-8">
-            {/* SignUp Form */}
-            {!isLoginForm && (
+          {!isLoginForm && (
               <>
                 <div className="grid gap-3 md:grid-cols-2">
                   {/* First Name */}
@@ -105,32 +95,7 @@ const Login = () => {
                     />
                   </div>
 
-                  <div>
-                    <label>Gender</label>
-                    <select
-                      value={gender}
-                      onChange={(e) => setGender(e.target.value)}
-                      className="mt-2 h-12 w-full rounded-md bg-gray-500 px-3 text-white"
-
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Others</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label>Age</label>
-                    <input
-                      type="text"
-                      value={age}
-                      onChange={(e) => setAge(e.target.value)}
-                      placeholder="Enter your age"
-                      className="mt-2 h-12 w-full rounded-md bg-gray-500 px-3 text-white"
-
-                    />
-                  </div>
+                  
                 </div>
               </>
             )}
