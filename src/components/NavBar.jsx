@@ -22,7 +22,7 @@ const NavBar = () => {
     <div className="navbar bg-base-300">
       <div className="flex-1">
         <Link to="/feed" className="btn btn-ghost text-xl">
-        <span className="text-2xl">🦸🏻</span>DevBharat
+        <span className="text-2xl">🦸🏻</span>DevTinder
         </Link>
       </div>
       {user && (
