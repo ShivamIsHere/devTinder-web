@@ -30,25 +30,26 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.data));
       return navigate("/feed");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
   };
 
-  const handleSignUp = async () => {
-    e.prevent.default();
+  const handleSignUp = async (e) => {
+    e.preventDefault();
     try {
       const res = await axios.post(
-        BASE_URL + "/signup",
+        `${BASE_URL}/signup`,
         { emailId, password, firstName, lastName, age, gender },
         { withCredentials: true }
       );
       dispatch(addUser(res.data.data));
-      return navigate("/profile");
+      navigate("/profile");
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
+      setErrorMessage(err?.response?.data?.message || "Something went wrong!");
+      console.error(err);
     }
   };
 
